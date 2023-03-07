@@ -1,0 +1,19 @@
+* {
+  background-color: rgb(207, 230, 207);
+  align-items: center;
+}
+
+
+.pokemon-card {
+  float: left;
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+  padding-bottom: 25px;
+
+}
+
+.size {
+  width: 65%;
+  height: 230px;
+}

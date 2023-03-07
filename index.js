@@ -1,43 +1,48 @@
 const pokemonList = document.querySelector("#pokemon-list");
 const pokemonDetail = document.querySelector("#pokemon-detail");
+const pokemonCard = document.querySelector("#pokemonCard");
 
-function navigateDetail(event) {
-  let url = event.target.innerText;
-  fetch(url)
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-      pokemonDetail.innerHTML += `
-              <h3>Name-${data.name}</h3>
+async function navigateDetail(event, url) {
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    console.log(data);
+    console.log(pokemonCard);
+    theDiv.appendChild(`
+              <div>
+                <h3>Name-${data.name}</h3>
               <h3>Height-${data.height}</h3>
               <h3>Weight-${data.weight}</h3>
               <h3>Abilities-${data.abilities.map((el) => {
                 return `<p>${el.ability.name}</p>`;
               })}</h3>
-          `;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+              </div>
+              `);
+  } catch (err) {
+    console.log(err);
+  }
 }
 
-function fetchPokemons() {
-  fetch("https://pokeapi.co/api/v2/pokemon/")
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-      data.results.forEach((post) => {
-        pokemonList.innerHTML += `
-          <div class="pokemon-card">
-              <h3>${post.name}</h3>
-              <button onClick=navigateDetail(event)>${post.url}</button>
-            </div>
-          `;
-      });
-    })
-    .catch((err) => {
-      console.log(err);
+async function fetchPokemons() {
+  try {
+    const res = await fetch("https://pokeapi.co/api/v2/pokemon/");
+    const data = await res.json();
+    console.log(data);
+    data.results.map(async (post) => {
+      const res = await fetch(post.url);
+      const pokemonData = await res.json();
+      pokemonList.innerHTML += `
+        <div class="pokemon-card" id="pokemonCard">
+        <h3> ${pokemonData.name .toUpperCase()}</h3>
+        <button onClick=navigateDetail(this,'${post.url}')>
+        <img class="size" src="${pokemonData.sprites.front_default}" alt="${pokemonData.name}"/>
+        </button>
+        </div>
+        `;
     });
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 fetchPokemons();
