@@ -8,7 +8,7 @@ async function navigateDetail(event, url) {
     const data = await res.json();
     console.log(data);
     console.log(pokemonCard);
-    theDiv.appendChild(`
+    document.body.appendChild(`
               <div>
                 <h3>Name-${data.name}</h3>
               <h3>Height-${data.height}</h3>
