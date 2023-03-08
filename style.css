@@ -1,19 +1,111 @@
 * {
-  background-color: rgb(207, 230, 207);
   align-items: center;
+  margin: 0;
+  padding: 0;
 }
 
+body {
+  background-color: rgb(207, 230, 207);
+}
+
+.center {
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+#pokemon-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
 .pokemon-card {
-  float: left;
   display: flex;
   flex-direction: column;
-  padding-left: 20px;
-  padding-bottom: 25px;
+  padding: 20px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  margin: 20px;
+  background-color: white;
+}
 
+#myBtn {
+  background-color: #fff;
+  border: 1px solid #d5d9d9;
+  border-radius: 8px;
+  box-shadow: rgba(213, 217, 217, 0.5) 0 2px 5px 0;
+  box-sizing: border-box;
+  color: #0f1111;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Amazon Ember", sans-serif;
+  font-size: 13px;
+  line-height: 29px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+}
+
+#myBtn:hover {
+  background-color: #f7fafa;
+}
+
+#myBtn:focus {
+  border-color: #008296;
+  box-shadow: rgba(213, 217, 217, 0.5) 0 2px 5px 0;
+  outline: 0;
 }
 
 .size {
   width: 65%;
   height: 230px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  width: 25%; /* Could be more or less, depending on screen size */
+  height: 45%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  padding-right: 5px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#model-content {
+  background-color: rgb(207, 230, 207);
+  padding: 20px;
+  text-align: center;
+  line-height: 2;
 }
