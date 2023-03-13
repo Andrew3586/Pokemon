@@ -1,10 +1,11 @@
 const modal = document.getElementById("myModal");
-const span = document.getElementsByClassName("close")[0];
+const closeDown = document.getElementById("close");
+// const close = document.getElementsByClassName("close-cross")[0];
 const pokemonList = document.querySelector("#pokemon-list");
 const pokemonDetail = document.querySelector("#pokemon-detail");
 const pokemonCard = document.querySelector("#pokemonCard");
 
-span.onclick = function () {
+closeDown.onclick = function () {
   modal.style.display = "none";
 };
 window.onclick = function (event) {

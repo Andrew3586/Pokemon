@@ -95,7 +95,7 @@ body {
 }
 
 /* The Close Button */
-.close {
+#close {
   color: #000000;
   float: right;
   padding-right: 5px;
@@ -103,8 +103,8 @@ body {
   font-weight: bolder;
 }
 
-.close:hover,
-.close:focus {
+#close:hover,
+#close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
