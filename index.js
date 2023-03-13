@@ -13,20 +13,18 @@ window.onclick = function (event) {
   }
 };
 
-function navigateDetail(event, post) {
+function modalContent(event, post) {
   modal.style.display = "block";
   console.log(post);
   const h5Element = `
     <h2>${post.name.toUpperCase()}</h2>
     <h5>Weight-${post.weight}</h5>
     <h5>Height-${post.height}</h5>
-    <div class="abilities">
-      <h5>Abilities-${post.abilities.map((el) => {
-        return `<p>${el.ability.name}</p>`;
-        })}
+        <h5>Abilities-${post.abilities.map((el) => {
+    return `<p>${el.ability.name}</p>`;
+  })}
       </h5>
-    </div>
-`;
+   `;
   document.getElementById("model-content").innerHTML = h5Element;
 }
 
@@ -48,12 +46,11 @@ async function fetchSinglePokemon(url) {
     pokemonList.innerHTML += `
     <div class="pokemon-card" id="pokemonCard">
     <h3> ${pokemonData.name.toUpperCase()}</h3>
-    <button onClick='navigateDetail(event, ${JSON.stringify(
+    <button onClick='modalContent(event, ${JSON.stringify(
       pokemonData
     )})' id="myBtn">
-    <img class="size" src='${pokemonData.sprites.front_default}' alt='${
-      pokemonData.name
-    }' />
+    <img class="size" src='${pokemonData.sprites.front_default}' alt='${pokemonData.name
+      }' />
     </button>
     </div>
     `;

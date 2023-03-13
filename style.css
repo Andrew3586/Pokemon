@@ -49,6 +49,7 @@ body {
   -webkit-user-select: none;
   touch-action: manipulation;
   vertical-align: middle;
+  flex-direction: row;
 }
 
 #myBtn:hover {
@@ -66,6 +67,12 @@ body {
   height: 230px;
 }
 
+/* .abilities {
+  display: inline;
+  margin: 0;
+  padding: 0;
+} */
+
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
@@ -77,23 +84,23 @@ body {
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  background-color: rgb(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
 .modal-content {
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 10% auto; /* 15% from the top and centered */
   padding: 20px;
-  width: 25%; /* Could be more or less, depending on screen size */
-  height: 45%;
+  width: 20%; /* Could be more or less, depending on screen size */
+  height: 55%;
 }
 
 /* The Close Button */
 .close {
-  color: #aaa;
+  color: #000000;
   float: right;
   padding-right: 5px;
   font-size: 28px;
-  font-weight: bold;
+  font-weight: bolder;
 }
 
 .close:hover,
