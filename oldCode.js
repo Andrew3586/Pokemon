@@ -1,96 +1,47 @@
-// const pokemonList = document.querySelector("#pokemon-list");
-// const pokemonDetail = document.querySelector("#pokemon-detail");
-// const pokemonCard = document.querySelector("#pokemonCard");
-
-// async function navigateDetail(event, url) {
-//   try {
-//     const res = await fetch(url);
-//     const data = await res.json();
-//     console.log(data);
-//     console.log(pokemonCard);
-//     document.body.appendChild(`
-//               <div>
-//                 <h3>Name-${data.name}</h3>
-//               <h3>Height-${data.height}</h3>
-//               <h3>Weight-${data.weight}</h3>
-//               <h3>Abilities-${data.abilities.map((el) => {
-//                 return `<p>${el.ability.name}</p>`;
-//               })}</h3>
-//               </div>
-//               `);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// }
-
-// async function fetchPokemons() {
-//   try {
-//     const res = await fetch("https://pokeapi.co/api/v2/pokemon/");
-//     const data = await res.json();
-//     console.log(data);
-//     data.results.map(async (post) => {
-//       const res = await fetch(post.url);
-//       const pokemonData = await res.json();
-//       pokemonList.innerHTML += `
-//         <div class="pokemon-card" id="pokemonCard">
-//         <h3> ${pokemonData.name .toUpperCase()}</h3>
-//         <button onClick=navigateDetail(this,'${post.url}')>
-//         <img class="size" src="${pokemonData.sprites.front_default}" alt="${pokemonData.name}"/>
-//         </button>
-//         </div>
-//         `;
-//     });
-//   } catch (err) {
-//     console.log(err);
-//   }
-// }
-
-// fetchPokemons();
-
 const modal = document.getElementById("myModal");
-const modalContent = document.getElementById("modal-content");
-const btn = document.getElementById("myBtn");
-const span = document.getElementsByClassName("close")[0];
+const closeDown = document.getElementById("close");
+const pokemonList = document.querySelector("#pokemon-list");
+const pokemonDetail = document.querySelector("#pokemon-detail");
+const pokemonCard = document.querySelector("#pokemonCard");
+const searchBox = document.querySelector("#searchBox");
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function () {
+let allPokemonData;
+let allPokemonInfo;
+
+async function getAllPokemonData() {
+  try {
+    let response = await fetch("https://pokeapi.co/api/v2/pokemon/");
+    let data = await response.json();
+    allPokemonData = data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+getAllPokemonData();
+console.log(allPokemonData);
+
+closeDown.onclick = function () {
   modal.style.display = "none";
 };
-
-// When the user clicks anywhere outside of the modal, close it
 window.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
 };
 
-const pokemonList = document.querySelector("#pokemon-list");
-const pokemonDetail = document.querySelector("#pokemon-detail");
-const pokemonCard = document.querySelector("#pokemonCard");
-
-// function navigateDetail(event, post) {
-//   console.log(post);
-//   const button = event.target.parentElement;
-//   const h3 = button.previousElementSibling;
-//   console.log(h3);
-
-//   const h5Element = `<ul> <h5>Weight-${post.weight}</h5>
-//  <h5>Height-${post.height}</h5>
-// <div class="abilities" <h5>Abilities-${post.abilities.map((el) => {
-//     return `<p>${el.ability.name}</p>`;
-//   })}</h5></ul></div>
-// `
-//   h3.insertAdjacentHTML("afterend", h5Element);
-// }
-
-function navigateDetail(event, post) {
+function modalContent(event, post) {
   modal.style.display = "block";
-  const h5Element = `<ul> <h5>Weight-${post.weight}</h5>
- <h5>Height-${post.height}</h5>
-<div class="abilities" <h5>Abilities-${post.abilities.map((el) => {
-    return `<p>${el.ability.name}</p>`;
-  })}</h5></ul></div>
-`;
+  console.log(post);
+  const h5Element = `
+    <h2>${post.name.toUpperCase()}</h2>
+    <h5>Weight-${post.weight}</h5>
+    <h5>Height-${post.height}</h5>
+        <h5>Abilities-${post.abilities.map((el) => {
+          return `<p>${el.ability.name}</p>`;
+        })}
+      </h5>
+   `;
   document.getElementById("model-content").innerHTML = h5Element;
 }
 
@@ -98,31 +49,80 @@ async function fetchPokemons() {
   try {
     const res = await fetch("https://pokeapi.co/api/v2/pokemon/");
     const data = await res.json();
-    data.results.forEach((post) => {
-      fetchSinglePokemon(post.url);
+    const allPokemonInfo = await Promise.all(
+      data.results.map(async (post) => {
+        return await fetchSinglePokemon(post.url);
+      })
+    );
+    const allPokemonHtml = allPokemonInfo.map((el) => {
+      return `<div class="pokemon-card" id="pokemonCard">
+      <h3> ${el.name.toUpperCase()}</h3>
+      <button onClick='modalContent(event, ${JSON.stringify(el)})' id="myBtn">
+      <img class="size" src='${el.sprites.front_default}' alt='${el.name}' />
+    </button>
+    </div>`;
     });
+    appendPokemon(allPokemonHtml);
   } catch (err) {
     console.log(err);
   }
 }
+
 async function fetchSinglePokemon(url) {
   try {
     const res = await fetch(url);
     const pokemonData = await res.json();
-    pokemonList.innerHTML += `
-    <div class="pokemon-card" id="pokemonCard">
-    <h3> ${pokemonData.name.toUpperCase()}</h3>
-    <button onClick='navigateDetail(event, ${JSON.stringify(
-      pokemonData
-    )})' id="myBtn">
-    <img class="size" src='${pokemonData.sprites.front_default}' alt='${
-      pokemonData.name
-    }' />
-    </button>
-    </div>
-    `;
+    return pokemonData;
   } catch (err) {
     console.log(err);
   }
 }
-fetchPokemons();
+
+async function fetchFilteredPokemons(query) {
+  try {
+    const res = await fetch("https://pokeapi.co/api/v2/pokemon/");
+    const data = await res.json();
+    const filteredData = data.results.filter((el) => {
+      return el.name.match(query);
+    });
+    return filteredData;
+  } catch (err) {
+    console.log(err);
+  }
+}
+function appendPokemon(htmlContent) {
+  pokemonList.innerHTML = htmlContent;
+}
+
+async function searchInp() {
+  try {
+    let text = searchBox.value;
+    const data = await fetchFilteredPokemons(text);
+    const filteredPokemon = await Promise.all(
+      data.map(async (el) => {
+        return await fetchSinglePokemon(el.url);
+      })
+    );
+    const pokemonHtml = filteredPokemon.map((el) => {
+      return `
+            <div class="pokemon-card" id="pokemonCard">
+            <h3> ${el.name.toUpperCase()}</h3>
+            <button onClick='modalContent(event, ${JSON.stringify(
+              el
+            )})' id="myBtn">
+            <img class="size" src='${el.sprites.front_default}' alt='${
+        el.name
+      }' />
+          </button>
+          </div>
+          `;
+    });
+    appendPokemon(pokemonHtml);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+if (!searchBox.value) {
+  fetchPokemons();
+}

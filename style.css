@@ -15,6 +15,20 @@ body {
   margin-bottom: 30px;
 }
 
+#field {
+  text-align: center;
+
+}
+
+#searchBox {
+  width: 10%;
+  border-radius: 4px;
+  padding: 5px 20px;
+  font-size: medium;
+  text-align: center;
+  font-weight: 545;
+}
+
 #pokemon-list {
   display: flex;
   flex-wrap: wrap;

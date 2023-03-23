@@ -8,9 +8,8 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div></div>
     <!-- The Modal -->
-      <div id="myModal" class="modal">
+    <div id="myModal" class="modal">
       <!-- Modal content -->
       <div class="modal-content">
         <div id="close">&times;</div>
@@ -20,10 +19,16 @@
     <main>
       <section id="pokemons">
         <h1 class="center">Pokemon Characters</h1>
+        <form id="field">
+          <label for="searchBox"> Search Your Pokemon </label>
+          <br>
+          <input id="searchBox" type="text" name="test" oninput="searchInp()"/>
+        </form>
         <div id="pokemon-list"></div>
         <div id="pokemon-detail"></div>
       </section>
     </main>
   </body>
   <script src="index.js"></script>
+  <!-- <script src="oldCode.js"></script> -->
 </html>
