@@ -25,7 +25,7 @@ function modalContent(event, post) {
           return `<p>${el.ability.name}</p>`;
         })}
       </h5>
-   `;
+  `;
   document.getElementById("model-content").innerHTML = h5Element;
 }
 
