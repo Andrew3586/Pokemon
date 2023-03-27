@@ -38,6 +38,7 @@ async function fetchPokemons() {
         return await fetchSinglePokemon(post.url);
       })
     );
+
     const allPokemonHtml = allPokemonInfo.map((el) => {
       return `<div class="pokemon-card" id="pokemonCard">
       <h3> ${el.name.toUpperCase()}</h3>
