@@ -16,7 +16,6 @@ window.onclick = function (event) {
 
 function modalContent(event, post) {
   modal.style.display = "block";
-  console.log(post);
   const h5Element = `
     <h2>${post.name.toUpperCase()}</h2>
     <h5>Weight-${post.weight}</h5>
@@ -63,6 +62,10 @@ async function fetchSinglePokemon(url) {
   }
 }
 
+// 4. Which I have created a function fetchFilteredPokemons(query)
+// 5. So we are fetching all the Pokemons again, then we are filtering for the name el.name.match(query);
+// 6. Then we are looking for the individual letters in the pokemons.
+
 async function fetchFilteredPokemons(query) {
   try {
     const res = await fetch("https://pokeapi.co/api/v2/pokemon/");
@@ -70,21 +73,27 @@ async function fetchFilteredPokemons(query) {
     const filteredData = data.results.filter((el) => {
       return el.name.match(query);
     });
+    // 7. Then we are returning the filtered the filtered data and getting the filtered (const data below)
     return filteredData;
   } catch (err) {
     console.log(err);
   }
 }
+// 10. We are just appending all the html that we have collected to this pokemon div(pokemon list)
 function appendPokemon(htmlContent) {
   pokemonList.innerHTML = htmlContent;
 }
-
+// 1. Taking an input from the user & search input is in the html
 async function searchInp() {
   try {
+    // 2. This is the value the user has entered
     let text = searchBox.value;
+    // 3. Then we are filtering the pokemons
+    // 8. Inside the data is the name and url of the pokemon
     const data = await fetchFilteredPokemons(text);
     const filteredPokemon = await Promise.all(
       data.map(async (el) => {
+        // 9. We are searching each single pokemon
         return await fetchSinglePokemon(el.url);
       })
     );
