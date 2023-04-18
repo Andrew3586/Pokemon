@@ -46,7 +46,7 @@ async function fetchPokemons() {
     </button>
     </div>`;
     });
-    appendPokemon(allPokemonHtml);
+    appendPokemon(allPokemonHtml.join(""));
   } catch (err) {
     console.log(err);
   }
@@ -111,7 +111,7 @@ async function searchInp() {
           </div>
           `;
     });
-    appendPokemon(pokemonHtml);
+    appendPokemon(pokemonHtml.join(""));
   } catch (err) {
     console.log(err);
   }
